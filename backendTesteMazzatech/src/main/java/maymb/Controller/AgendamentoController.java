@@ -4,6 +4,10 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.List;
+import maymb.DTOs.AgendamentoRequestDTO;
+import maymb.DTOs.AgendamentoResponseDTO;
+
 @RestController
 @RequestMapping("/agendamentos")
 public class AgendamentoController {
