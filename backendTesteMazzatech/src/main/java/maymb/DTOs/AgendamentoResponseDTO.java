@@ -17,6 +17,9 @@ public class AgendamentoResponseDTO {
         this.dataTransferencia = dataTransferencia;
     }
 
+    public AgendamentoResponseDTO() {
+    }
+
     public String getContaOrigem() {
         return contaOrigem;
     }
