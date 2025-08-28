@@ -2,15 +2,18 @@
 package maymb.DTOs;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 
 public class AgendamentoRequestDTO {
-
+    private static final String CONTA_PATTERN = "^\\d{10}$";
     @NotBlank
+    @Pattern(regexp = CONTA_PATTERN, message = "A conta de origem deve ter 10 d\u00EDgitos.")
     private String contaOrigem;
 
     @NotBlank
+    @Pattern(regexp = CONTA_PATTERN, message = "A conta de destino deve ter 10 d\u00EDgitos.")
     private String contaDestino;
 
     @NotNull

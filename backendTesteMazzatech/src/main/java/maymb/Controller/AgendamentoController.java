@@ -9,12 +9,14 @@ import java.util.List;
 import maymb.DTOs.AgendamentoRequestDTO;
 import maymb.DTOs.AgendamentoResponseDTO;
 
+import javax.validation.Valid;
+
 @RestController
 @CrossOrigin(origins = "http://localhost:8081")
 public class AgendamentoController {
 
     @PostMapping("/agendamentos")
-    public AgendamentoResponseDTO criarAgendamento(AgendamentoRequestDTO request) {
+    public AgendamentoResponseDTO criarAgendamento(@Valid AgendamentoRequestDTO request) {
         // Lógica para criar um agendamento
         return new AgendamentoResponseDTO(
                 request.getContaOrigem(),
