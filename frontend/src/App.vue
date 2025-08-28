@@ -1,26 +1,45 @@
 <template>
-  <img alt="Vue logo" src="./assets/logo.png">
-  <HelloWorld msg="Welcome to Your Vue.js App"/>
+ 
+  <div id="app" class="container">
+    <header class="text-center my-4">
+      <h1>Sistema de Agendamento de Transferências</h1>
+    </header>
+
+    <main class="row">
+      <section class="col-md-6 mb-4">
+        <h2>Agendar Nova Transferência</h2>
+        <AgendamentoFormulario @agendamento-salvo="atualizarExtrato" />
+      </section>
+
+      <section class="col-md-6">
+        <h2>Extrato de Agendamentos</h2>
+        <ExtratoTabela ref="extratoComponent" />
+      </section>
+    </main>
+  </div>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
+
+import AgendamentoFormulario from './components/AgendamentoFormulario.vue'
+import ExtratoTabela from './components/ExtratoTabela.vue'
 
 export default {
   name: 'App',
   components: {
-    HelloWorld
+    AgendamentoFormulario,
+    ExtratoTabela
   }
 }
 </script>
 
 <style>
 #app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
   margin-top: 60px;
 }
 </style>
+
+
+
+
+
