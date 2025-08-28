@@ -1,9 +1,9 @@
 package maymb.Controller;
 
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import maymb.Service.AgendamentoService;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import maymb.DTOs.AgendamentoRequestDTO;
@@ -15,15 +15,15 @@ import javax.validation.Valid;
 @CrossOrigin(origins = "http://localhost:8081")
 public class AgendamentoController {
 
+    private AgendamentoService agendamentoService;
+
     @PostMapping("/agendamentos")
-    public AgendamentoResponseDTO criarAgendamento(@Valid AgendamentoRequestDTO request) {
-        // Lógica para criar um agendamento
-        return new AgendamentoResponseDTO(
-                request.getContaOrigem(),
-                request.getContaDestino(),
-                request.getValorTransferencia(),
-                request.getDataTransferencia()
-        );
+    public ResponseEntity<AgendamentoResponseDTO> criarAgendamento(@Valid @RequestBody AgendamentoRequestDTO request) {
+        // 1. Chama o serviço para processar o agendamento
+        AgendamentoResponseDTO responseDto = agendamentoService.salvarAgendamento(request);
+
+        // 2. Retorna a resposta com o status 201 Created e o corpo do objeto salvo
+        return new ResponseEntity<>(responseDto, HttpStatus.CREATED);
     }
 
     public List<AgendamentoResponseDTO> listarAgendamentos() {
