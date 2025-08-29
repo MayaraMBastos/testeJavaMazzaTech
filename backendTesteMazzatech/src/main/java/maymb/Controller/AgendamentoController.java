@@ -17,6 +17,11 @@ public class AgendamentoController {
 
     private AgendamentoService agendamentoService;
 
+    /*Injeção de dependencia por construtor, maior testabilidade*/
+    public AgendamentoController(AgendamentoService agendamentoService) {
+        this.agendamentoService = agendamentoService;
+    }
+
     @PostMapping("/agendamentos")
     public ResponseEntity<AgendamentoResponseDTO> criarAgendamento(@Valid @RequestBody AgendamentoRequestDTO request) {
         // 1. Chama o serviço para processar o agendamento
@@ -26,8 +31,5 @@ public class AgendamentoController {
         return new ResponseEntity<>(responseDto, HttpStatus.CREATED);
     }
 
-    public List<AgendamentoResponseDTO> listarAgendamentos() {
-        // Lógica para listar agendamentos
-        return List.of();
-    }
+  
 }

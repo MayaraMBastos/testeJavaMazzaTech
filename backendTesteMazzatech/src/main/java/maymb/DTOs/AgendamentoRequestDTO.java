@@ -9,11 +9,11 @@ import java.time.LocalDate;
 public class AgendamentoRequestDTO {
     private static final String CONTA_PATTERN = "^\\d{10}$";
     @NotBlank
-    @Pattern(regexp = CONTA_PATTERN, message = "A conta de origem deve ter 10 d\u00EDgitos.")
+    @Pattern(regexp = CONTA_PATTERN, message = "A conta de origem deve ter 10 digitos.")
     private String contaOrigem;
 
     @NotBlank
-    @Pattern(regexp = CONTA_PATTERN, message = "A conta de destino deve ter 10 d\u00EDgitos.")
+    @Pattern(regexp = CONTA_PATTERN, message = "A conta de destino deve ter 10 digitos.")
     private String contaDestino;
 
     @NotNull

@@ -1,13 +1,11 @@
 package maymb.Model;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 
 @Entity
+@Table(name = "agendamentos_tb")
 public class AgendamentoEntity {
 
     @Id
@@ -34,6 +32,9 @@ public class AgendamentoEntity {
         this.contaDestino = contaDestino;
         this.contaOrigem = contaOrigem;
         this.id = id;
+    }
+
+    public AgendamentoEntity() {
     }
 
     public Long getId() {

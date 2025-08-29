@@ -10,14 +10,41 @@ public class AgendamentoResponseDTO {
     private BigDecimal valorTransferencia;
     private LocalDate dataTransferencia;
 
-    public AgendamentoResponseDTO(String contaOrigem, String contaDestino, BigDecimal valorTransferencia, LocalDate dataTransferencia) {
+    private BigDecimal taxa;
+
+    public AgendamentoResponseDTO(String contaOrigem, String contaDestino, BigDecimal valorTransferencia, LocalDate dataTransferencia, BigDecimal taxa) {
         this.contaOrigem = contaOrigem;
         this.contaDestino = contaDestino;
         this.valorTransferencia = valorTransferencia;
         this.dataTransferencia = dataTransferencia;
+        this.taxa = taxa;
     }
 
     public AgendamentoResponseDTO() {
+    }
+
+    public BigDecimal getTaxa() {
+        return taxa;
+    }
+
+    public void setTaxa(BigDecimal taxa) {
+        this.taxa = taxa;
+    }
+
+    public void setContaOrigem(String contaOrigem) {
+        this.contaOrigem = contaOrigem;
+    }
+
+    public void setContaDestino(String contaDestino) {
+        this.contaDestino = contaDestino;
+    }
+
+    public void setValorTransferencia(BigDecimal valorTransferencia) {
+        this.valorTransferencia = valorTransferencia;
+    }
+
+    public void setDataTransferencia(LocalDate dataTransferencia) {
+        this.dataTransferencia = dataTransferencia;
     }
 
     public String getContaOrigem() {
