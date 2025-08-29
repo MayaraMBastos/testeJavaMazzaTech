@@ -1,12 +1,13 @@
 package maymb.Controller;
 
-import maymb.Respository.AgendamentoRepository;
+
 import maymb.Service.AgendamentoService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+
 import maymb.DTOs.AgendamentoRequestDTO;
 import maymb.DTOs.AgendamentoResponseDTO;
 
@@ -20,11 +21,15 @@ public class AgendamentoController {
 
 
     /*Injeção de dependencia por construtor, maior testabilidade*/
-
     public AgendamentoController(AgendamentoService agendamentoService) {
         this.agendamentoService = agendamentoService;
     }
 
+    /*
+     * Requisição GET para listar agendamentos por conta de origem
+     * @Param : contaOrigem
+     * Return : code 201
+     * */
     @GetMapping(value = "/agendamentos", params = "contaOrigem")
     public ResponseEntity<List<AgendamentoResponseDTO>> getAgendamentosPorContaOrigem(@RequestParam String contaOrigem) {
         List<AgendamentoResponseDTO> agendamentos = agendamentoService.findByContaOrigem(contaOrigem);
@@ -46,5 +51,5 @@ public class AgendamentoController {
         return ResponseEntity.noContent().build();
     }
 
-  
+
 }

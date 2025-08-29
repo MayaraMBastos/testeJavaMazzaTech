@@ -22,6 +22,13 @@ public class AgendamentoRequestDTO {
     @NotNull
     private LocalDate dataTransferencia;
 
+    public AgendamentoRequestDTO(String contaOrigem, String contaDestino, BigDecimal valorTransferencia, LocalDate dataTransferencia) {
+        this.contaOrigem = contaOrigem;
+        this.contaDestino = contaDestino;
+        this.valorTransferencia = valorTransferencia;
+        this.dataTransferencia = dataTransferencia;
+    }
+
     public String getContaOrigem() {
         return contaOrigem;
     }

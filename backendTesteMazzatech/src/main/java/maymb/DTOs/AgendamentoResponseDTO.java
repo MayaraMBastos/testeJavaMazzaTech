@@ -13,6 +13,19 @@ public class AgendamentoResponseDTO {
     private LocalDate dataTransferencia;
     private LocalDate dataAgendamento;
 
+    public AgendamentoResponseDTO(Long id, String contaOrigem, String contaDestino, BigDecimal valorTransferencia, BigDecimal taxa, LocalDate dataTransferencia, LocalDate dataAgendamento) {
+        this.id = id;
+        this.contaOrigem = contaOrigem;
+        this.contaDestino = contaDestino;
+        this.valorTransferencia = valorTransferencia;
+        this.taxa = taxa;
+        this.dataTransferencia = dataTransferencia;
+        this.dataAgendamento = dataAgendamento;
+    }
+
+    public AgendamentoResponseDTO() {
+    }
+
     public Long getId() {
         return id;
     }
