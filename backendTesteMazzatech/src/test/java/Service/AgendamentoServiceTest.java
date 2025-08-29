@@ -2,6 +2,7 @@ package Service;
 
 import maymb.DTOs.AgendamentoRequestDTO;
 import maymb.DTOs.AgendamentoResponseDTO;
+import maymb.Exceptions.RegraDeNegocioException;
 import maymb.Model.AgendamentoEntity;
 import maymb.Respository.AgendamentoRepository;
 import maymb.Service.AgendamentoService;
@@ -64,14 +65,35 @@ class AgendamentoServiceTest {
         assertEquals(savedEntity.getTaxa(), responseDTO.getTaxa());
         verify(agendamentoRepository, times(1)).save(any(AgendamentoEntity.class));
     }
-
-    @Test
+@Test
     void deveLancarExcecaoQuandoDataTransferenciaAnteriorADataAtual() {
-        // Cenário
-        AgendamentoRequestDTO requestDTO = new AgendamentoRequestDTO("1234567890", "6789012345", new BigDecimal("1000.00"), LocalDate.now(), LocalDate.now());
+        // Cenário: Tentativa de agendar uma transferência com data anterior a data de agendamento.
+        // Data de agendamento é hoje, data de transferência é ontem.
+        AgendamentoRequestDTO requestDTO = new AgendamentoRequestDTO(
+                "1234567890",
+                "6789012345",
+                new BigDecimal("100.00"),
+                LocalDate.now().minusDays(1), // data de transferencia no passado
+                LocalDate.now() // data de agendamento
+        );
 
-        // Verificação: deve lançar uma exceção específica
-        assertThrows(IllegalArgumentException.class, () -> agendamentoService.salvarAgendamento(requestDTO));
+        // Ação e Verificação: Confirma que o método lanca a excecao correta
+        assertThrows(RegraDeNegocioException.class, () -> agendamentoService.salvarAgendamento(requestDTO));
+    }
+
+       @Test
+    void deveLancarExcecaoQuandoTaxaNaoAplicavel() {
+        // Cenário: Valor que nao se encaixa em nenhuma regra de taxa
+        AgendamentoRequestDTO requestDTO = new AgendamentoRequestDTO(
+                "1234567890",
+                "6789012345",
+                new BigDecimal("20000.00"), // Valor que nao se encaixa
+                LocalDate.now().plusDays(51),
+                LocalDate.now()
+        );
+
+        // Acao e Verificacao
+        assertThrows(RegraDeNegocioException.class, () -> agendamentoService.salvarAgendamento(requestDTO));
     }
 
     @Test

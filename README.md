@@ -94,7 +94,8 @@ Certifique-se de ter instalado:
 ### 🔹 Backend
 ```bash
 cd backendTesteMazzatech
-mvn spring-boot:run
+mvn clean package
+java -jar target/backendTesteMazzatech-1.0-SNAPSHOT.jar
 ```
 
 ### 🔹 Frontend
