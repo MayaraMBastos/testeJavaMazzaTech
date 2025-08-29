@@ -40,15 +40,29 @@ export default {
     };
   },
   methods: {
+    // Método de validação local
+    validarContas() {
+      if (this.form.contaOrigem.length !== 10 || this.form.contaDestino.length !== 10) {
+        alert('A conta de origem e a conta de destino devem conter exatamente 10 dígitos.');
+        return false;
+      }
+      return true;
+    },
+
     async agendarTransferencia() {
+      // Validação do lado do cliente antes de enviar a requisição
+      if (!this.validarContas()) {
+        return; // Interrompe a execução se a validação falhar
+      }
+
       try {
         const response = await axios.post('http://localhost:8080/agendamentos', this.form);
-        
+
         if (response.status === 201) {
           alert('Transferência agendada com sucesso!');
-          // O evento agora apenas notifica, sem passar a conta de origem
           this.$emit('agendamento-salvo');
-          this.resetForm();
+          // A linha abaixo foi removida para não limpar o formulário
+          // this.resetForm();
         }
       } catch (error) {
         if (error.response && error.response.status === 400) {
@@ -74,10 +88,3 @@ export default {
 <style scoped>
 /* Estilos específicos para este componente */
 </style>
-```
-eof
-
-A única alteração é esta linha:
-
-```javascript
-alert(error.response.data.mensagem || 'Erro ao agendar a transferência.');

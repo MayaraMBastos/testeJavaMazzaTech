@@ -5,15 +5,18 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 import javax.validation.constraints.DecimalMin;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 
 public class AgendamentoRequestDTO {
 
     @NotBlank(message = "A conta de origem não pode estar em branco.")
+    @Pattern(regexp = "\\d{10}", message = "A conta de origem deve conter exatamente 10 dígitos.")
     private String contaOrigem;
 
     @NotBlank(message = "A conta de destino não pode estar em branco.")
+    @Pattern(regexp = "\\d{10}", message = "A conta de destino deve conter exatamente 10 dígitos.")
     private String contaDestino;
 
     @NotNull(message = "O valor da transferência não pode ser nulo.")
