@@ -89,17 +89,26 @@ export default {
   width: 100%;
   border-spacing: 0 0.5vw; /* Margem vertical menor entre as linhas */
   min-width: 600px;
+  border: 1px solid #ccc;    /* Borda fina ao redor da tabela */
+  border-collapse: separate; /* Não colapsa as bordas das células */
+  border-radius: 6px;        /* Opcional: cantos arredondados */
+  overflow: hidden;          /* Garante que o border-radius funcione */
 }
 
 th, td {
-  padding: 1vw 0.5vw;      /* Espaçamento interno menor */
+  padding: 1vw 0.5vw;
   vertical-align: middle;
   word-break: break-word;
   max-width: 120px;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
-  text-align: center; /* Centraliza o texto nas células */
+  text-align: center;
+  border: none; /* Remove linhas internas */
+}
+
+th {
+  font-size: 0.95em;
 }
 
 @media (max-width: 768px) {
@@ -111,6 +120,9 @@ th, td {
     padding: 1.5vw 0.5vw;
     max-width: 80px;
   }
+  th {
+    font-size: 0.9em;
+  }
 }
 
 @media (max-width: 576px) {
@@ -121,6 +133,9 @@ th, td {
   th, td {
     padding: 2vw 0.5vw;
     max-width: 60px;
+  }
+  th {
+    font-size: 0.85em;
   }
   :host, div {
     overflow-x: auto;

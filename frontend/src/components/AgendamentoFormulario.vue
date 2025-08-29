@@ -136,8 +136,25 @@ form {
 
 button[type="submit"] {
   margin-top: 2vw;
-  padding: 1vw 3vw;
+  padding: 0.7em 1em;
   font-size: 1em;
+  width: 100%; /* igual ao dos inputs */
+  background-color: #b6e7c9; /* verde opaco clarinho */
+  color: #155724;
+  border: none;
+  border-radius: 6px;
+  box-shadow: none;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  transition: background 0.2s;
+  font-weight: 500;
+  cursor: pointer;
+  text-align: center;
+}
+
+button[type="submit"]:hover {
+  background-color: #a3d9b1;
 }
 
 @media (max-width: 768px) {
