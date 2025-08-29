@@ -9,6 +9,7 @@
           <th scope="col">Taxa</th>
           <th scope="col">Data da Transferência</th>
           <th scope="col">Data de Agendamento</th>
+          <th scope="col">Ações</th>
         </tr>
       </thead>
       <tbody>
@@ -19,6 +20,9 @@
           <td>R$ {{ agendamento.taxa.toFixed(2) }}</td>
           <td>{{ agendamento.dataTransferencia }}</td>
           <td>{{ agendamento.dataAgendamento }}</td>
+          <td>
+            <button @click="deletarAgendamento(agendamento.id)" class="btn btn-danger btn-sm">Cancelar</button>
+          </td>
         </tr>
       </tbody>
     </table>
@@ -30,7 +34,6 @@ import axios from 'axios';
 
 export default {
   name: 'ExtratoTabela',
-  // Recebe a conta de origem como prop do App.vue
   props: ['contaOrigem'],
   data() {
     return {
@@ -41,7 +44,6 @@ export default {
     async carregarDados() {
       try {
         let url = 'http://localhost:8080/agendamentos';
-        // Adiciona o parâmetro de filtro se a conta de origem for fornecida
         if (this.contaOrigem) {
           url = `${url}?contaOrigem=${this.contaOrigem}`;
         }
@@ -50,16 +52,26 @@ export default {
       } catch (error) {
         console.error('Erro ao carregar os agendamentos:', error);
       }
+    },
+    async deletarAgendamento(id) {
+      if (confirm('Tem certeza de que deseja cancelar este agendamento?')) {
+        try {
+          await axios.delete(`http://localhost:8080/agendamentos/${id}`);
+          alert('Agendamento cancelado com sucesso!');
+          this.carregarDados(); // Recarrega os dados para atualizar a tabela
+        } catch (error) {
+          console.error('Erro ao cancelar o agendamento:', error);
+          alert('Erro ao cancelar o agendamento.');
+        }
+      }
     }
   },
-  // 'watcher' para monitorar a mudança na prop 'contaOrigem'
   watch: {
     contaOrigem: {
-      // Omitimos o parâmetro 'newValue' porque não é usado, resolvendo o erro do ESLint
       handler() {
         this.carregarDados();
       },
-      immediate: true // Executa o handler na primeira vez em que o componente é montado
+      immediate: true
     }
   }
 };

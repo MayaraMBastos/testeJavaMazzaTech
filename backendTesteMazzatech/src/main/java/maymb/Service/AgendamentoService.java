@@ -5,6 +5,7 @@ import maymb.DTOs.AgendamentoResponseDTO;
 import maymb.Model.AgendamentoEntity;
 import maymb.Respository.AgendamentoRepository;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
@@ -105,6 +106,11 @@ public class AgendamentoService {
                 .map(this::convertToResponseDTO)
                 .collect(Collectors.toList());
     }
+
+    @Transactional
+    public void delete(Long id) {
+        agendamentoRepository.deleteById(id);
+    }
     private AgendamentoEntity convertToEntity(AgendamentoRequestDTO dto) {
         AgendamentoEntity entity = new AgendamentoEntity();
         entity.setContaOrigem(dto.getContaOrigem());
@@ -116,6 +122,7 @@ public class AgendamentoService {
 
     private AgendamentoResponseDTO convertToResponseDTO(AgendamentoEntity entity) {
         AgendamentoResponseDTO response = new AgendamentoResponseDTO();
+        response.setId(entity.getId());
         response.setContaOrigem(entity.getContaOrigem());
         response.setContaDestino(entity.getContaDestino());
         response.setValorTransferencia(entity.getValorTransferencia());
