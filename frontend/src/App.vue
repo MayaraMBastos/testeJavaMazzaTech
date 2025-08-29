@@ -48,10 +48,13 @@ export default {
 </script>
 
 <style scoped>
+@import url('https://fonts.googleapis.com/css?family=Roboto:400,500,700&display=swap');
+
 html, body, #app {
   height: 100%;
   margin: 0;
   background-color: #f8f9fa;
+  font-family: 'Roboto', Arial, Helvetica, sans-serif;
 }
 
 #app {
