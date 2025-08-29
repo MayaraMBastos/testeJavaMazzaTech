@@ -121,6 +121,7 @@ public class AgendamentoService {
         entity.setContaDestino(dto.getContaDestino());
         entity.setValorTransferencia(dto.getValorTransferencia());
         entity.setDataTransferencia(dto.getDataTransferencia());
+        entity.setDataAgendamento(dto.getDataAgendamento()); // Adicionado
         return entity;
     }
 
@@ -132,7 +133,7 @@ public class AgendamentoService {
         response.setValorTransferencia(entity.getValorTransferencia());
         response.setTaxa(entity.getTaxa());
         response.setDataTransferencia(entity.getDataTransferencia());
-        response.setDataAgendamento(entity.getDataAgendamento());
+        response.setDataAgendamento(entity.getDataAgendamento()); // Já estava presente
         return response;
     }
 

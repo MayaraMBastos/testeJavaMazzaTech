@@ -17,7 +17,14 @@
     
     <div class="mb-3">
       <label for="dataTransferencia" class="form-label">Data da Transferência</label>
-      <input type="date" class="form-control" id="dataTransferencia" v-model="form.dataTransferencia" required>
+      <input
+        type="date"
+        class="form-control"
+        id="dataTransferencia"
+        v-model="form.dataTransferencia"
+        :min="hoje"
+        required
+      >
     </div>
     
     <button type="submit" class="btn btn-primary">Agendar</button>
@@ -30,13 +37,18 @@ import axios from 'axios';
 export default {
   name: 'AgendamentoFormulario',
   data() {
+    const hoje = new Date();
+    const yyyy = hoje.getFullYear();
+    const mm = String(hoje.getMonth() + 1).padStart(2, '0');
+    const dd = String(hoje.getDate()).padStart(2, '0');
     return {
+      hoje: `${yyyy}-${mm}-${dd}`,
       form: {
         contaOrigem: '',
         contaDestino: '',
         valorTransferencia: null,
         dataTransferencia: null,
-        dataAgendamento: null // adicione este campo
+        dataAgendamento: null
       }
     };
   },

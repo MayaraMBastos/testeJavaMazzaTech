@@ -1,8 +1,10 @@
 package maymb.DTOs;
 
+import maymb.validators.DataLimiteTransferencia;
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.datatype.jsr310.deser.LocalDateDeserializer;
 
-import javax.validation.constraints.DecimalMin;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
@@ -20,26 +22,30 @@ public class AgendamentoRequestDTO {
     private String contaDestino;
 
     @NotNull(message = "O valor da transferência não pode ser nulo.")
-    @DecimalMin(value = "0.01", message = "O valor da transferência deve ser maior que zero.")
     private BigDecimal valorTransferencia;
 
     @NotNull(message = "A data da transferência não pode ser nula.")
     @JsonFormat(pattern = "yyyy-MM-dd")
+    @JsonDeserialize(using = LocalDateDeserializer.class)
     private LocalDate dataTransferencia;
 
-    // Construtor padrão (adicionado para o Jackson)
+    @NotNull(message = "A data de agendamento não pode ser nula.")
+    @JsonFormat(pattern = "yyyy-MM-dd")
+    @JsonDeserialize(using = LocalDateDeserializer.class)
+    private LocalDate dataAgendamento;
+
     public AgendamentoRequestDTO() {
     }
-
-    // Construtor completo
-    public AgendamentoRequestDTO(String contaOrigem, String contaDestino, BigDecimal valorTransferencia, LocalDate dataTransferencia) {
+    
+    // Construtor, getters e setters
+    public AgendamentoRequestDTO(String contaOrigem, String contaDestino, BigDecimal valorTransferencia, LocalDate dataTransferencia, LocalDate dataAgendamento) {
         this.contaOrigem = contaOrigem;
         this.contaDestino = contaDestino;
         this.valorTransferencia = valorTransferencia;
         this.dataTransferencia = dataTransferencia;
+        this.dataAgendamento = dataAgendamento;
     }
 
-    // Getters e Setters
     public String getContaOrigem() {
         return contaOrigem;
     }
@@ -70,5 +76,13 @@ public class AgendamentoRequestDTO {
 
     public void setDataTransferencia(LocalDate dataTransferencia) {
         this.dataTransferencia = dataTransferencia;
+    }
+
+    public LocalDate getDataAgendamento() {
+        return dataAgendamento;
+    }
+
+    public void setDataAgendamento(LocalDate dataAgendamento) {
+        this.dataAgendamento = dataAgendamento;
     }
 }
