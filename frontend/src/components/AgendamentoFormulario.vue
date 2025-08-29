@@ -52,7 +52,8 @@ export default {
         }
       } catch (error) {
         if (error.response && error.response.status === 400) {
-          alert(error.response.data.message || 'Erro ao agendar a transferência.');
+          // Acesso à chave correta 'mensagem'
+          alert(error.response.data.mensagem || 'Erro ao agendar a transferência.');
         } else {
           alert('Ocorreu um erro na comunicação com a API.');
         }
@@ -73,3 +74,10 @@ export default {
 <style scoped>
 /* Estilos específicos para este componente */
 </style>
+```
+eof
+
+A única alteração é esta linha:
+
+```javascript
+alert(error.response.data.mensagem || 'Erro ao agendar a transferência.');

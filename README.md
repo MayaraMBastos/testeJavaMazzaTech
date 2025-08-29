@@ -21,7 +21,7 @@ O sistema calcula a taxa de transferência com base em regras de negócio e perm
 ## 🏗️ Arquitetura
 A aplicação é dividida em duas partes principais:
 
-- **Backend**: Desenvolvido com **Java** e **Spring Boot**, responsável pela lógica de negócio, persistência de dados (**H2 Database**) e validações.
+- **Backend**: Desenvolvido com **Java** e **Spring Boot**,estrutura MVC, persistência de dados (**H2 Database**), validações e testes unitários.
 - **Frontend**: Desenvolvido com **Vue.js**, consumindo a API REST para agendar e consultar transferências.
 
 ---
@@ -29,12 +29,14 @@ A aplicação é dividida em duas partes principais:
 ## 🛠️ Tecnologias Utilizadas
 
 ### Backend
-- **Java 17** – Linguagem de programação
-- **Spring Boot 3.5.3** – Framework principal
+- **Java 11** – Linguagem de programação
+- **Spring Boot 2.7.5** – Framework principal
 - **Spring Data JPA** – Acesso ao banco de dados (H2)
 - **Spring Web** – Criação da API REST
 - **H2 Database** – Banco de dados em memória
 - **Maven** – Gerenciamento de dependências
+- **Swagger** – Documentação da API
+
 
 ### Frontend
 - **Vue.js 2.6.14** – Framework principal
@@ -49,7 +51,7 @@ A estrutura de ficheiros está organizada para separar backend e frontend:
 
 ```
 .
-├── backend/
+├── backendTesteMazzatech/
 │   ├── src/
 │   │   ├── main/
 │   │   │   ├── java/
@@ -59,7 +61,15 @@ A estrutura de ficheiros está organizada para separar backend e frontend:
 │   │   │   │       ├── Model/
 │   │   │   │       ├── Repository/
 │   │   │   │       └── Service/
-│   │   └── resources/
+│   │   │   └── resources/
+│   │   │       └── application.properties
+│   │   └── test/
+│   │       └── java/
+│   │           └── maymb/
+│   │               ├── Controller/
+│   │               │   └── AgendamentoControllerTest.java
+│   │               └── Service/
+│   │                   └── AgendamentoServiceTest.java
 │   └── pom.xml
 │
 └── frontend/
@@ -77,13 +87,13 @@ A estrutura de ficheiros está organizada para separar backend e frontend:
 
 ### 🔹 Pré-requisitos
 Certifique-se de ter instalado:
-- **Java 17** ou superior
+- **Java 11** ou superior
 - **Maven 3.6** ou superior
 - **Node.js e npm**
 
 ### 🔹 Backend
 ```bash
-cd backend
+cd backendTesteMazzatech
 mvn spring-boot:run
 ```
 
@@ -108,8 +118,8 @@ Após iniciar backend e frontend, acesse:
 Request Body:
 ```json
 {
-  "contaOrigem": "12345",
-  "contaDestino": "67890",
+  "contaOrigem": "1234567890",
+  "contaDestino": "6789012345",
   "valorTransferencia": 1500.00,
   "dataTransferencia": "2025-09-01"
 }
@@ -122,7 +132,7 @@ Request Body:
 
 Exemplo:
 ```
-http://localhost:8080/agendamentos?contaOrigem=12345
+http://localhost:8080/agendamentos?contaOrigem=1234567890
 ```
 
 ---
@@ -167,5 +177,8 @@ Este projeto está licenciado sob a **MIT License**.
 
 ---
 
-## 👥 Autor
-Desenvolvido como um exemplo de **sistema de agendamento**.
+## 👩‍💻 Autora
+
+**Mayara Martinello Bastos**  
+🌐 [linkedin.com/in/mayara-martinello-bastos](https://www.linkedin.com/in/mayara-martinello-bastos)  
+📫 maybastos2021@gmail.com
