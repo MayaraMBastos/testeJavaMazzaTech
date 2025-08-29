@@ -1,5 +1,4 @@
 <template>
- 
   <div id="app" class="container">
     <header class="text-center my-4">
       <h1>Sistema de Agendamento de Transferências</h1>
@@ -20,17 +19,22 @@
 </template>
 
 <script>
-
-import AgendamentoFormulario from './components/AgendamentoFormulario.vue'
-import ExtratoTabela from './components/ExtratoTabela.vue'
+import AgendamentoFormulario from './components/AgendamentoFormulario.vue';
+import ExtratoTabela from './components/ExtratoTabela.vue';
 
 export default {
   name: 'App',
   components: {
     AgendamentoFormulario,
-    ExtratoTabela
-  }
-}
+    ExtratoTabela,
+  },
+  methods: {
+    atualizarExtrato() {
+      // Chama o método 'carregarDados' do componente ExtratoTabela
+      this.$refs.extratoComponent.carregarDados();
+    },
+  },
+};
 </script>
 
 <style>
@@ -38,8 +42,3 @@ export default {
   margin-top: 60px;
 }
 </style>
-
-
-
-
-

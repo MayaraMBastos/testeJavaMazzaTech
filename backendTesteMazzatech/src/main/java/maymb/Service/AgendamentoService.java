@@ -10,6 +10,8 @@ import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class AgendamentoService {
@@ -96,6 +98,13 @@ public class AgendamentoService {
         // Caso não haja taxa aplicável, retorne 'null' conforme o requisito
         return null;
     }
+
+    public List<AgendamentoResponseDTO> findByContaOrigem(String contaOrigem) {
+        return agendamentoRepository.findByContaOrigem(contaOrigem)
+                .stream()
+                .map(this::convertToResponseDTO)
+                .collect(Collectors.toList());
+    }
     private AgendamentoEntity convertToEntity(AgendamentoRequestDTO dto) {
         AgendamentoEntity entity = new AgendamentoEntity();
         entity.setContaOrigem(dto.getContaOrigem());
@@ -110,9 +119,9 @@ public class AgendamentoService {
         response.setContaOrigem(entity.getContaOrigem());
         response.setContaDestino(entity.getContaDestino());
         response.setValorTransferencia(entity.getValorTransferencia());
-        response.setTaxa(entity.getTaxa()); // Pega a taxa da entidade já persistida
+        response.setTaxa(entity.getTaxa());
         response.setDataTransferencia(entity.getDataTransferencia());
-        response.setDataTransferencia(entity.getDataAgendamento()); // Corrigido
+        response.setDataAgendamento(entity.getDataAgendamento());
         return response;
     }
 

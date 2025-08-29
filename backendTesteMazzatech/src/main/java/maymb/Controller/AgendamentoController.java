@@ -1,5 +1,6 @@
 package maymb.Controller;
 
+import maymb.Respository.AgendamentoRepository;
 import maymb.Service.AgendamentoService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -17,9 +18,19 @@ public class AgendamentoController {
 
     private AgendamentoService agendamentoService;
 
+
     /*Injeção de dependencia por construtor, maior testabilidade*/
+
     public AgendamentoController(AgendamentoService agendamentoService) {
         this.agendamentoService = agendamentoService;
+    }
+
+    @GetMapping("/agendamentos")
+    public ResponseEntity<List<AgendamentoResponseDTO>> getAgendamentos() {
+        // Chamada CORRETA: O Controller chama o Service
+        List<AgendamentoResponseDTO> agendamentos = agendamentoService.findAll();
+        // Retorna a lista de DTOs
+        return ResponseEntity.ok(agendamentos);
     }
 
     @PostMapping("/agendamentos")

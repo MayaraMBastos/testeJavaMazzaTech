@@ -6,8 +6,10 @@ import org.springframework.stereotype.Repository;
 
 import maymb.Model.AgendamentoEntity;
 
+import java.util.List;
+
 @Repository
 public interface AgendamentoRepository extends JpaRepository<AgendamentoEntity, Long> {
- 
-    
+
+    List<AgendamentoEntity> findByContaOrigem(String contaOrigem);
 }
