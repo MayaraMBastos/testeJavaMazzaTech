@@ -18,8 +18,8 @@
           <td>{{ agendamento.contaDestino }}</td>
           <td>R$ {{ agendamento.valorTransferencia.toFixed(2) }}</td>
           <td>R$ {{ agendamento.taxa.toFixed(2) }}</td>
-          <td>{{ agendamento.dataTransferencia }}</td>
-          <td>{{ agendamento.dataAgendamento }}</td>
+          <td>{{ formatarData(agendamento.dataTransferencia) }}</td>
+          <td>{{ formatarData(agendamento.dataAgendamento) }}</td>
           <td>
             <button @click="deletarAgendamento(agendamento.id)" class="btn btn-danger btn-sm">Cancelar</button>
           </td>
@@ -64,6 +64,15 @@ export default {
           alert('Erro ao cancelar o agendamento.');
         }
       }
+    },
+    formatarData(dataStr) {
+      if (!dataStr) return '';
+      const data = new Date(dataStr);
+      if (isNaN(data)) return dataStr;
+      const dia = String(data.getDate()).padStart(2, '0');
+      const mes = String(data.getMonth() + 1).padStart(2, '0');
+      const ano = data.getFullYear();
+      return `${dia}/${mes}/${ano}`;
     }
   },
   watch: {
@@ -78,5 +87,45 @@ export default {
 </script>
 
 <style scoped>
-/* Estilos específicos para este componente */
+.table {
+  width: 100%;
+  border-spacing: 0 0.5vw; /* Margem vertical menor entre as linhas */
+  min-width: 600px;
+}
+
+th, td {
+  padding: 1vw 0.5vw;      /* Espaçamento interno menor */
+  vertical-align: middle;
+  word-break: break-word;
+  max-width: 120px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  text-align: center; /* Centraliza o texto nas células */
+}
+
+@media (max-width: 768px) {
+  .table {
+    font-size: 0.95em;
+    min-width: 500px;
+  }
+  th, td {
+    padding: 1.5vw 0.5vw;
+    max-width: 80px;
+  }
+}
+
+@media (max-width: 576px) {
+  .table {
+    font-size: 0.9em;
+    min-width: 400px;
+  }
+  th, td {
+    padding: 2vw 0.5vw;
+    max-width: 60px;
+  }
+  :host, div {
+    overflow-x: auto;
+  }
+}
 </style>

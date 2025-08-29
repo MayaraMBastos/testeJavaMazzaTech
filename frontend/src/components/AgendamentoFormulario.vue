@@ -35,7 +35,8 @@ export default {
         contaOrigem: '',
         contaDestino: '',
         valorTransferencia: null,
-        dataTransferencia: null
+        dataTransferencia: null,
+        dataAgendamento: null // adicione este campo
       }
     };
   },
@@ -55,13 +56,19 @@ export default {
         return; // Interrompe a execução se a validação falhar
       }
 
+      // Define a data de agendamento como hoje (formato yyyy-MM-dd)
+      const hoje = new Date();
+      const yyyy = hoje.getFullYear();
+      const mm = String(hoje.getMonth() + 1).padStart(2, '0');
+      const dd = String(hoje.getDate()).padStart(2, '0');
+      this.form.dataAgendamento = `${yyyy}-${mm}-${dd}`;
+
       try {
         const response = await axios.post('http://localhost:8080/agendamentos', this.form);
 
         if (response.status === 201) {
           alert('Transferência agendada com sucesso!');
           this.$emit('agendamento-salvo');
-          // A linha abaixo foi removida para não limpar o formulário
           // this.resetForm();
         }
       } catch (error) {
@@ -86,5 +93,60 @@ export default {
 </script>
 
 <style scoped>
-/* Estilos específicos para este componente */
+form {
+  width: 100%;
+  min-width: 280px;
+  max-width: 500px;
+  margin: 0 auto;
+}
+
+.mb-3 {
+  margin-bottom: 2vw;
+}
+
+.form-label {
+  margin-bottom: 0.5vw;
+  font-weight: 500;
+}
+
+.form-control {
+  padding: 1vw 1vw;
+  font-size: 1em;
+  border-radius: 6px;
+  border: 1px solid #ced4da;
+}
+
+button[type="submit"] {
+  margin-top: 2vw;
+  padding: 1vw 3vw;
+  font-size: 1em;
+}
+
+@media (max-width: 768px) {
+  .mb-3 {
+    margin-bottom: 3vw;
+  }
+  .form-control {
+    padding: 3vw 1vw;
+  }
+  button[type="submit"] {
+    padding: 2vw 5vw;
+  }
+}
+
+@media (max-width: 576px) {
+  form {
+    min-width: 180px;
+    max-width: 100%;
+  }
+  .mb-3 {
+    margin-bottom: 4vw;
+  }
+  .form-control {
+    padding: 4vw 2vw;
+  }
+  button[type="submit"] {
+    padding: 3vw 8vw;
+  }
+}
 </style>

@@ -3,6 +3,7 @@ package maymb.Model;
 import javax.persistence.*;
 import java.math.BigDecimal;
 import java.time.LocalDate;
+import com.fasterxml.jackson.annotation.JsonFormat;
 
 @Entity
 @Table(name = "agendamentos_tb")
@@ -20,8 +21,10 @@ public class AgendamentoEntity {
 
     private BigDecimal taxa;
 
+    @JsonFormat(pattern = "yyyy-MM-dd")
     private LocalDate dataTransferencia;
 
+    @JsonFormat(pattern = "yyyy-MM-dd")
     private LocalDate dataAgendamento;
 
     public AgendamentoEntity(LocalDate dataAgendamento, LocalDate dataTransferencia, BigDecimal taxa, BigDecimal valorTransferencia, String contaDestino, String contaOrigem, Long id) {
