@@ -67,12 +67,10 @@ export default {
     },
     formatarData(dataStr) {
       if (!dataStr) return '';
-      const data = new Date(dataStr);
-      if (isNaN(data)) return dataStr;
-      const dia = String(data.getDate()).padStart(2, '0');
-      const mes = String(data.getMonth() + 1).padStart(2, '0');
-      const ano = data.getFullYear();
-      return `${dia}/${mes}/${ano}`;
+      const partes = dataStr.split('-');
+      if (partes.length !== 3) return dataStr;
+      const [ano, mes, dia] = partes;
+      return `${dia.padStart(2, '0')}/${mes.padStart(2, '0')}/${ano}`;
     }
   },
   watch: {

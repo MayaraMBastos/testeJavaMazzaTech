@@ -114,18 +114,24 @@ form {
 
 .mb-3 {
   margin-bottom: 2vw;
+  display: flex;
+  flex-direction: column;
 }
 
 .form-label {
-  margin-bottom: 0.5vw;
+  margin-bottom: 0.4vw;
   font-weight: 500;
+  display: block;
+  text-align: left;
 }
 
 .form-control {
-  padding: 1vw 1vw;
+  padding: 0.5vw 1vw;
   font-size: 1em;
   border-radius: 6px;
   border: 1px solid #ced4da;
+  height: 2.2em; /* altura menor */
+  box-sizing: border-box;
 }
 
 button[type="submit"] {
@@ -139,7 +145,8 @@ button[type="submit"] {
     margin-bottom: 3vw;
   }
   .form-control {
-    padding: 3vw 1vw;
+    padding: 1.5vw 1vw;
+    height: 2.4em;
   }
   button[type="submit"] {
     padding: 2vw 5vw;
@@ -155,7 +162,8 @@ button[type="submit"] {
     margin-bottom: 4vw;
   }
   .form-control {
-    padding: 4vw 2vw;
+    padding: 2vw 2vw;
+    height: 2.6em;
   }
   button[type="submit"] {
     padding: 3vw 8vw;

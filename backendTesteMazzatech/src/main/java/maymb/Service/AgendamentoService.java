@@ -26,11 +26,15 @@ public class AgendamentoService {
     }
 
     public AgendamentoResponseDTO salvarAgendamento(AgendamentoRequestDTO requestDTO) {
+        // As datas ja estao no formato LocalDate devido a DTO e suas anotacoes.
+        LocalDate dataTransferencia = requestDTO.getDataTransferencia();
+        LocalDate dataAgendamento = requestDTO.getDataAgendamento();
+
         // Passo 1: Validação da data
-        verificarDataValida(requestDTO.getDataTransferencia());
+        verificarDataValida(dataTransferencia, dataAgendamento);
 
         // Passo 2: Cálculo dos dias entre as datas
-        long diasParaTransferencia = calcularDiasEntreDatas(requestDTO.getDataTransferencia());
+        long diasParaTransferencia = calcularDiasEntreDatas(dataAgendamento, dataTransferencia);
 
         // Passo 3: Cálculo da taxa
         BigDecimal taxaCalculada = calcularTaxa(requestDTO.getValorTransferencia(), diasParaTransferencia);
@@ -43,7 +47,6 @@ public class AgendamentoService {
         // Passo 5: Conversão e preenchimento da entidade
         AgendamentoEntity entity = convertToEntity(requestDTO);
         entity.setTaxa(taxaCalculada);
-        entity.setDataAgendamento(LocalDate.now());
 
         // Passo 6: Persistência no banco de dados
         AgendamentoEntity savedEntity = agendamentoRepository.save(entity);
@@ -51,16 +54,18 @@ public class AgendamentoService {
         // Passo 7: Conversão da entidade salva para DTO de resposta
         return convertToResponseDTO(savedEntity);
     }
-    private void verificarDataValida(LocalDate dataTransferencia) {
-        if (dataTransferencia.isBefore(LocalDate.now())) {
+
+    private void verificarDataValida(LocalDate dataTransferencia, LocalDate dataAgendamento) {
+        if (dataTransferencia.isBefore(dataAgendamento)) {
             throw new RegraDeNegocioException("A data da transferência não pode ser anterior à data de agendamento.");
         }
     }
 
     // Função de responsabilidade única para o cálculo de dias
-    private long calcularDiasEntreDatas(LocalDate dataTransferencia) {
-        return ChronoUnit.DAYS.between(LocalDate.now(), dataTransferencia);
+    private long calcularDiasEntreDatas(LocalDate dataAgendamento, LocalDate dataTransferencia) {
+        return ChronoUnit.DAYS.between(dataAgendamento, dataTransferencia);
     }
+
     public BigDecimal calcularTaxa(BigDecimal valorTransferencia, long dias) {
         // Lógica de agendamento que excede 50 dias.
         if (dias > 50) {
@@ -115,16 +120,19 @@ public class AgendamentoService {
     public void delete(Long id) {
         agendamentoRepository.deleteById(id);
     }
+
+    // Convertendo a DTO para a Entidade
     private AgendamentoEntity convertToEntity(AgendamentoRequestDTO dto) {
         AgendamentoEntity entity = new AgendamentoEntity();
         entity.setContaOrigem(dto.getContaOrigem());
         entity.setContaDestino(dto.getContaDestino());
         entity.setValorTransferencia(dto.getValorTransferencia());
         entity.setDataTransferencia(dto.getDataTransferencia());
-        entity.setDataAgendamento(dto.getDataAgendamento()); // Adicionado
+        entity.setDataAgendamento(dto.getDataAgendamento());
         return entity;
     }
 
+    // Convertendo a Entidade para a DTO de Resposta
     private AgendamentoResponseDTO convertToResponseDTO(AgendamentoEntity entity) {
         AgendamentoResponseDTO response = new AgendamentoResponseDTO();
         response.setId(entity.getId());
@@ -133,9 +141,7 @@ public class AgendamentoService {
         response.setValorTransferencia(entity.getValorTransferencia());
         response.setTaxa(entity.getTaxa());
         response.setDataTransferencia(entity.getDataTransferencia());
-        response.setDataAgendamento(entity.getDataAgendamento()); // Já estava presente
+        response.setDataAgendamento(entity.getDataAgendamento());
         return response;
     }
-
-
 }

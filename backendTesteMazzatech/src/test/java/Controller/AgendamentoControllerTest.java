@@ -36,7 +36,7 @@ class AgendamentoControllerTest {
     @Test
     void deveCriarAgendamentoComSucesso() {
         // 1. Cenário
-        AgendamentoRequestDTO requestDTO = new AgendamentoRequestDTO("1234567890", "6789012345", new BigDecimal("1000.00"), LocalDate.now());
+        AgendamentoRequestDTO requestDTO = new AgendamentoRequestDTO("1234567890", "6789012345", new BigDecimal("1000.00"), LocalDate.now(), LocalDate.now());
         AgendamentoResponseDTO responseDTO = new AgendamentoResponseDTO();
         responseDTO.setId(1L);
         responseDTO.setContaOrigem("1234567890");

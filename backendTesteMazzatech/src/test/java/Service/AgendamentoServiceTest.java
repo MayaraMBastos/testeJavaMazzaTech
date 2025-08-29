@@ -37,7 +37,7 @@ class AgendamentoServiceTest {
     @Test
     void deveSalvarAgendamentoComSucessoERetornarDTO() {
         // Cenário de teste
-        AgendamentoRequestDTO requestDTO = new AgendamentoRequestDTO("1234567890", "6789012345", new BigDecimal("100.00"), LocalDate.now().plusDays(5));
+        AgendamentoRequestDTO requestDTO = new AgendamentoRequestDTO("1234567890", "6789012345", new BigDecimal("1000.00"), LocalDate.now(), LocalDate.now());
         AgendamentoEntity entityToSave = new AgendamentoEntity();
         entityToSave.setContaOrigem(requestDTO.getContaOrigem());
         entityToSave.setContaDestino(requestDTO.getContaDestino());
@@ -68,7 +68,7 @@ class AgendamentoServiceTest {
     @Test
     void deveLancarExcecaoQuandoDataTransferenciaAnteriorADataAtual() {
         // Cenário
-        AgendamentoRequestDTO requestDTO = new AgendamentoRequestDTO("1234567890", "6789012345", new BigDecimal("100.00"), LocalDate.now().minusDays(1));
+        AgendamentoRequestDTO requestDTO = new AgendamentoRequestDTO("1234567890", "6789012345", new BigDecimal("1000.00"), LocalDate.now(), LocalDate.now());
 
         // Verificação: deve lançar uma exceção específica
         assertThrows(IllegalArgumentException.class, () -> agendamentoService.salvarAgendamento(requestDTO));

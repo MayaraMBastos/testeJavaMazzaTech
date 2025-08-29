@@ -1,10 +1,8 @@
 package maymb.DTOs;
 
-import maymb.validators.DataLimiteTransferencia;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.datatype.jsr310.deser.LocalDateDeserializer;
-
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
@@ -36,7 +34,7 @@ public class AgendamentoRequestDTO {
 
     public AgendamentoRequestDTO() {
     }
-    
+
     // Construtor, getters e setters
     public AgendamentoRequestDTO(String contaOrigem, String contaDestino, BigDecimal valorTransferencia, LocalDate dataTransferencia, LocalDate dataAgendamento) {
         this.contaOrigem = contaOrigem;
