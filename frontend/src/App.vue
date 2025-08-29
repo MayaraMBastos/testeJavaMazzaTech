@@ -12,7 +12,12 @@
 
       <section class="col-md-6">
         <h2>Extrato de Agendamentos</h2>
-        <ExtratoTabela ref="extratoComponent" />
+        <div class="mb-3">
+          <label for="filtroConta" class="form-label">Filtrar por Conta de Origem</label>
+          <input type="text" class="form-control" id="filtroConta" v-model="contaOrigemFiltro">
+        </div>
+        <!-- Passa a conta de origem do filtro como uma prop para a tabela -->
+        <ExtratoTabela :contaOrigem="contaOrigemFiltro" ref="extratoComponent" />
       </section>
     </main>
   </div>
@@ -28,12 +33,19 @@ export default {
     AgendamentoFormulario,
     ExtratoTabela,
   },
-  methods: {
-    atualizarExtrato() {
-      // Chama o método 'carregarDados' do componente ExtratoTabela
-      this.$refs.extratoComponent.carregarDados();
-    },
+  data() {
+    return {
+      // Nova propriedade para o campo de filtro
+      contaOrigemFiltro: null
+    };
   },
+  methods: {
+    // Este método é chamado quando um agendamento é salvo com sucesso
+    atualizarExtrato() {
+      // Força a tabela a recarregar os dados do filtro atual
+      this.$refs.extratoComponent.carregarDados();
+    }
+  }
 };
 </script>
 

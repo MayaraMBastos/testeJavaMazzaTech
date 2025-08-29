@@ -46,13 +46,12 @@ export default {
         
         if (response.status === 201) {
           alert('Transferência agendada com sucesso!');
-          // Emite um evento para o componente pai (App.vue)
+          // O evento agora apenas notifica, sem passar a conta de origem
           this.$emit('agendamento-salvo');
           this.resetForm();
         }
       } catch (error) {
         if (error.response && error.response.status === 400) {
-            // Lança um alerta sobre o erro e não permite a transferência 
           alert(error.response.data.message || 'Erro ao agendar a transferência.');
         } else {
           alert('Ocorreu um erro na comunicação com a API.');

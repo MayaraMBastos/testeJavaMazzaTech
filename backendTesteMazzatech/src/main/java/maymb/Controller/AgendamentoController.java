@@ -25,11 +25,9 @@ public class AgendamentoController {
         this.agendamentoService = agendamentoService;
     }
 
-    @GetMapping("/agendamentos")
-    public ResponseEntity<List<AgendamentoResponseDTO>> getAgendamentos() {
-        // Chamada CORRETA: O Controller chama o Service
-        List<AgendamentoResponseDTO> agendamentos = agendamentoService.findAll();
-        // Retorna a lista de DTOs
+    @GetMapping(value = "/agendamentos", params = "contaOrigem")
+    public ResponseEntity<List<AgendamentoResponseDTO>> getAgendamentosPorContaOrigem(@RequestParam String contaOrigem) {
+        List<AgendamentoResponseDTO> agendamentos = agendamentoService.findByContaOrigem(contaOrigem);
         return ResponseEntity.ok(agendamentos);
     }
 

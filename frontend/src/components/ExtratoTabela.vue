@@ -30,6 +30,8 @@ import axios from 'axios';
 
 export default {
   name: 'ExtratoTabela',
+  // Recebe a conta de origem como prop do App.vue
+  props: ['contaOrigem'],
   data() {
     return {
       agendamentos: []
@@ -38,16 +40,27 @@ export default {
   methods: {
     async carregarDados() {
       try {
-        const response = await axios.get('http://localhost:8080/agendamentos');
+        let url = 'http://localhost:8080/agendamentos';
+        // Adiciona o parâmetro de filtro se a conta de origem for fornecida
+        if (this.contaOrigem) {
+          url = `${url}?contaOrigem=${this.contaOrigem}`;
+        }
+        const response = await axios.get(url);
         this.agendamentos = response.data;
       } catch (error) {
         console.error('Erro ao carregar os agendamentos:', error);
       }
     }
   },
-  mounted() {
-    // Carrega os dados quando o componente é montado
-    this.carregarDados();
+  // 'watcher' para monitorar a mudança na prop 'contaOrigem'
+  watch: {
+    contaOrigem: {
+      // Omitimos o parâmetro 'newValue' porque não é usado, resolvendo o erro do ESLint
+      handler() {
+        this.carregarDados();
+      },
+      immediate: true // Executa o handler na primeira vez em que o componente é montado
+    }
   }
 };
 </script>
